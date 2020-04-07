@@ -15,17 +15,15 @@ Fig. Final Obstacle Map
  
 ### Directory Structure
     1. TestModel.py
-    2. TrainModel.py
-    3. Sum_images.py
-    4. EM.py
-    5. GMM.py
-    6. models
+    2. EM.py
+    3. GMM.py
+    4. models
         a. greenModel.pickle
         b. orangeModel.pickle
         c. yellowModel.pickle
-    7. 
-    X. report.pdf
-    X. README.md
+    5. detectbuoy.avi <-- video file
+    6. report.pdf
+    7. README.md
 ## How to run the code-
  ### System Requirements-
         Python v3.0.x or later
