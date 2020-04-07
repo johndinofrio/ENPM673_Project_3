@@ -129,6 +129,8 @@ This was done in a sequence of steps, leveraging the Gaussian Matrix Models that
 	\end{subfigure}
 \end{figure}
 
+We had some problems with the buoy detection at the end of the video. Becaus the camera is a lot closer to the buoys, the lighting changes the BGR values of the buoys. Becuase of this, the buoys don't fit into our Gaussian Mixture Model as well as they did in the previous frames. Only parts of the buoy show up in the binary image, so the contours are skewed and do not encompass the entire buoy. Perhaps better training data could have helped this problem. It was hard enough getting the current data we have and even harder getting it to localize at an optimum. Human error for data collection might be the cause of our algorithm's poor quality at the end.
+
 The final output for our attempt at this project can be found online here: \url{https://youtu.be/WhunWTYdN7Q}
 
 \end{document}
