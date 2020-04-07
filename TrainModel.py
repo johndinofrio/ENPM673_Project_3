@@ -48,7 +48,7 @@ if __name__ == '__main__':
             filename = os.path.join(path, file)
             imgArray = loadImg(filename)
             parameters, weights = gmm.train(imgArray, parameters, weights)
-
+        print(parameters,weights)
         model[path] = [parameters, weights]
 
         modelName = os.path.join(folder, name)

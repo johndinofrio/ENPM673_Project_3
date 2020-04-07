@@ -70,7 +70,7 @@ if __name__ == '__main__':
     hr = np.zeros((100, 100),dtype=np.uint8)
     hg = np.zeros((100, 100),dtype=np.uint8)
     desired_size = 100
-    Folder=2
+    Folder=0
     if Folder==0:
         path = glob.glob("Orange_Trained/*.png")
     elif Folder ==1:
@@ -83,8 +83,8 @@ if __name__ == '__main__':
         # im1 = Image.open(img)
         # new = image_module(im1)
         new1 = resize_cv(im)
-        if Folder == 2:
-            cv.imwrite("Orange_Resized/{}.png".format(num), new1)
+        if Folder == 0:
+            cv.imwrite("Orange_Resize/{}.png".format(num), new1)
         elif Folder == 1:
             cv.imwrite("Green_Resized/{}.png".format(num), new1)
         elif Folder == 2:

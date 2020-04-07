@@ -75,7 +75,7 @@ Using sample data, we used Expectation Maximization (EM) to find the Gaussian Mi
 \begin{figure}[H]
 	\centering		
 	\includegraphics[width=.8\linewidth]{./Figures/GMM.PNG}  
-    \caption{Plot of GMM wit 3 separate classes}
+    \caption{Plot of GMM wit 2 separate classes}
 \end{figure}
 
 For this specific chart, the mean and covariance of one of the clusters is provided below. 
@@ -105,6 +105,12 @@ In order to figure out how many Gaussians [N] we needed, we looked at the histog
 
 Based on this information and playing around with the data, we determined that the best number of Gaussians [N] is 3. This was the best fit for each buoy. The green and orange buoy both had dimensions of one while the yellow buoy had a dimension of two. This can be attritubted again to the fact that yellow is primarily two color channels. 
 
+\begin{figure}[H]
+	\centering		
+	\includegraphics[width=.8\linewidth]{./Figures/Histogram.PNG}  
+	\caption{Histogram of orange buoy were we can see its higher value at red channel}
+\end{figure}
+
 After implementing our EM algorithm, we found the mean and covariance of each cluster in our Gaussian distrubutions. In order to do this, we had to take the sample images we collected in section one and train our data on that. The twenty images we took for each buoy were then run through our EM algorithm we built. This code uses the training images and creates the Gaussian parameters that we later call upon to find the buoys. By training on the cropped buoy images, the [3]1-Dimensional Gaussian clusters move through every iteration of image until the three clusters find the local optimums. For an example, the final model parameters for the green buoy looked like as such.
 
 \begin{equation}
@@ -118,17 +124,31 @@ After implementing our EM algorithm, we found the mean and covariance of each cl
 
 This is one just one cluster out of three for the green buoy. After finding these parameters for every buoy color, we were able to create a visible model of the GMM. Depending on where the data falls on that chart, it is classified as that class.
 
-
 \begin{figure}[H]
 	\centering		
-	\includegraphics[width=.8\linewidth]{./Figures/GMM.PNG}  
-    \caption{Plot of GMM wit 3 separate classes}
+	\includegraphics[width=.8\linewidth]{./Figures/Prob.PNG}  
+	\caption{Plot of GMM First state of probabilistic iteration}
 \end{figure}
 
+The model will keep training with 20 samples until, and will create a better curvature and prediction for the buoy.
 
 \part*{Buoy Detection}
 
-The final step is to string it all together by testing the models against each frame to detect the buoy and draw the contours around them.
+During the bouy detection the first problem that was phased was the similarity of color with the background. Where it result in noise for the detection model. The following image shows the probability density function for this noise. This graph was important because it helped to distinguish between the real buoy color and the background noise color.
+
+\begin{figure}[H]
+	\centering		
+	\includegraphics[width=.8\linewidth]{./Figures/Color1.PNG}  
+	\caption{Noise example created because of background color similarity}
+\end{figure}
+
+The final step is to string it all together by testing the models against each frame to detect the buoy and draw the contours around them. In order to do this, three mask were created, one for each buoy. This mask will only recognize the color delimited by the GMM algorithm. The following picture shows all three mask interacting in every frame of the video.
+
+ \begin{figure}[H]
+ 	\centering		
+ 	\includegraphics[width=.8\linewidth]{./Figures/All.PNG}  
+ 	\caption{All mask and the video frame interacting together}
+ \end{figure}
 
 This was done in a sequence of steps, leveraging the Gaussian Matrix Models that had been created earlier. First, a mask was created for each buoy to identify its location in the image frame. This was found by testing the model for each color buoy against the frame to determine which buoy in the frame best matched and then performing a series of erosions and dilations to remove noise and isolate the buoy. From this isolated image we were able to draw the bounding contours using OpenCV's built in findContours and drawContours functions. 
 
@@ -150,8 +170,10 @@ This was done in a sequence of steps, leveraging the Gaussian Matrix Models that
 	\end{subfigure}
 \end{figure}
 
+
+
 We had some problems with the buoy detection at the end of the video. Becaus the camera is a lot closer to the buoys, the lighting changes the BGR values of the buoys. Becuase of this, the buoys don't fit into our Gaussian Mixture Model as well as they did in the previous frames. Only parts of the buoy show up in the binary image, so the contours are skewed and do not encompass the entire buoy. Perhaps better training data could have helped this problem. It was hard enough getting the current data we have and even harder getting it to localize at an optimum. Human error for data collection might be the cause of our algorithm's poor quality at the end.
 
-The final output for our attempt at this project can be found online here: \url{https://youtu.be/WhunWTYdN7Q}
+The final output for our attempt at this project can be found online here: \url{https://www.youtube.com/watch?v=aUqn-0Owpzs&feature=youtu.be}
 
 \end{document}

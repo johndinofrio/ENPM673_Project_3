@@ -55,7 +55,7 @@ if __name__ == '__main__':
             elif key == paths[2]:
                 yParams = info[0]
                 yMixture = info[1]
-
+        print(gParams)
     gModel = gmms[0]
     oModel = gmms[1]
     yModel = gmms[2]
@@ -122,10 +122,10 @@ if __name__ == '__main__':
                     yMask = cv.cvtColor(yMask, cv.COLOR_BGR2GRAY)
                 
                 
-    ##            # show Result
-    ##            All = np.hstack([gMask, oMask])
-    ##            cv.imshow('Frame1', All)
-    ##            cv.imshow('Frame2', yMask)
+                    # show Result
+                    All = np.hstack([gMask, oMask])
+                    cv.imshow('Frame1', All)
+                    cv.imshow('Frame2', yMask)
                 
                 
                 
