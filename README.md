@@ -34,7 +34,7 @@ Fig. Final Obstacle Map
  python3 TestModel.py --> to execute the trained model
    
    
-##Video link:
+## Video link:
   The final output of our code, after generating the 
   Gausian Matrix Models and applying them to the video,
   can be viewed at the following video link:  
