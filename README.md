@@ -1,35 +1,32 @@
 # ENPM673_Perception_Project3
 ## Implementation of Gaussian Mixture Model And Expectation Maximization for color detection 
-Fig. Final Obstacle Map
-    ![alt text](https:// "Map Title Text 1")
-## External Libraries used
+
+## External Libraries used for Final Execution
     1) Matplotlib
     2) Numpy
     3) OpenCV
-    5) heapq
-    6) imageio
-    7) seaborn
+
  ###Library Installation
  Libraries can be installed by running the command:  
  `pip3 install [LIBRARY_NAME]`
  
 ### Directory Structure
-    1. TestModel.py
-    2. EM.py
-    3. GMM.py
-    4. models
-        a. greenModel.pickle
-        b. orangeModel.pickle
-        c. yellowModel.pickle
-    5. detectbuoy.avi <-- video file
-    6. report.pdf
-    7. README.md
+    1. Code
+        a. TestModel.py
+        b. GMM.py
+        c. models
+            i. greenModel.pickle
+           ii. orangeModel.pickle
+          iii. yellowModel.pickle
+        d. detectbuoy.avi <-- video file
+    2. report.pdf
+    3. README.md
 ## How to run the code-
  ### System Requirements-
         Python v3.0.x or later
  ### Execution Command
- python3 TrainModel.py --> to train the model  
- python3 TestModel.py --> to execute the trained model
+ From the Code Directory:  
+ `python3 TestModel.py` --> to execute the trained model
    
    
 ## Video link:
