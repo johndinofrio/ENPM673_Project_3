@@ -34,5 +34,10 @@
   Gausian Matrix Models and applying them to the video,
   can be viewed at the following video link:  
   https://youtu.be/WhunWTYdN7Q
+  
+  An additional video was generated showing some of
+  the model training steps and can be found at the following video link:  
+  https://youtu.be/aUqn-0Owpzs
+  
 
    
