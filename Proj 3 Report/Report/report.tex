@@ -5,7 +5,7 @@
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{graphicx}
-
+\usepackage{hyperref}
 \usepackage{subcaption}
 
 \makeatletter
@@ -32,7 +32,7 @@ After writing the code to collect the centroids of each buoy, we took an average
 \begin{figure}[H]
 	\begin{subfigure}{.5\textwidth}
 		\centering		
-		\includegraphics[width=.8\linewidth]{./Figures/green_hist.PNG}  
+		\includegraphics[width=.8\linewidth]{./Figures/green_hist.png}  
     	\caption{Histogram of green buoy.}
 	\end{subfigure}
 	\begin{subfigure}{.5\textwidth}
@@ -69,5 +69,66 @@ Each buoy can be identified by the spike in the mid 200 range on the histograms.
 
 
 
+\part*{Learning Color Models}
+In order to figure out how many Gaussians [N] we needed, we looked at the histograms in Figure (3). Here we are showing green and yellow. Orange is the same as green because they are both close to a single color channel. Yellow is special because it is a combination of two color channels.
+
+\begin{figure}[H]
+	\begin{subfigure}{.5\textwidth}
+		\centering		
+		\includegraphics[width=.8\linewidth]{./Figures/yellow_hist2.PNG}  
+    	\caption{Histogram of yellow buoy}
+	\end{subfigure}
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{./Figures/green_hist2.PNG}
+		\caption{Histogram of green buoy.}
+	\end{subfigure}
+\end{figure}
+
+Based on this information and playing around with the data, we determined that the best number of Gaussians [N] is 3. This was the best fit for each buoy. The green and orange buoy both had dimensions of one while the yellow buoy had a dimension of two. This can be attritubted again to the fact that yellow is primarily two color channels. 
+
+After implementing our EM algorithm, we found the mean and covariance of each cluster in our Gaussian distrubutions. In order to do this, we had to take the sample images we collected in section one and train our data on that. The twenty images we took for each buoy were then run through our Gaussian Mixture Model (GMM) algorithm we built. This code uses the training images and creates the Gaussian parameters that we later call upon to find the buoys. By training on the cropped buoy images, the [3]1-Dimensional Gaussian clusters move through every iteration of image until the three clusters find the local optimums. For an example, the final model parameters for the green buoy looked like as such.
+
+\begin{equation}
+	mean_{1} = 458 \\
+	\begin{matrix}		
+	covariance_{11} = 113459 cov_{12} = 82993 cov_{13}= 112323 \\
+	covariance_{21} = 82993 cov_{22} = 60937 cov_{23}= 82319 \\
+	covariance_{31} = 112323 cov_{32} = 82319 cov_{33}= 111338
+	\end{matrix}
+\end{equation}
+
+This is one just one cluster out of three for the green buoy. After finding these parameters for every buoy color, we were able to create a visible model of the GMM. Depending on where the data falls on that chart, it is classified as that class.
+
+
+\begin{figure}[H]
+	\centering		
+	\includegraphics[width=.8\linewidth]{./Figures/GMM.PNG}  
+    \caption{Plot of GMM wit 3 separate classes}
+\end{figure}
+
+\textbf{The final step is to string it all together by testing the models against each frame to detect the buoy and draw the contours around them.}
+
+This was done in a sequence of steps, leveraging the Gaussian Matrix Models that had been created earlier. First, a mask was created for each buoy to identify its location in the image frame. This was found by testing the model for each color buoy against the frame to determine which buoy in the frame best matched and then performing a series of erosions and dilations to remove noise and isolate the buoy. From this isolated image we were able to draw the bounding contours using OpenCV's built in findContours and drawContours functions. 
+
+\begin{figure}[H]
+	\begin{subfigure}{.5\textwidth}
+		\centering		
+		\includegraphics[width=.8\linewidth]{./Figures/Buoy1.PNG}  
+    	\caption{A video frame with all three buoys}
+	\end{subfigure}
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{./Figures/Buoy2.PNG}
+		\caption{A video frame with only the Yellow and Orange Buoys}
+	\end{subfigure}
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{./Figures/Buoy3.PNG}
+		\caption{A video frame with the Yellow Buoy and the Orange Buoy almost completely out of frame}
+	\end{subfigure}
+\end{figure}
+
+The final output for our attempt at this project can be found online here: \url{https://youtu.be/WhunWTYdN7Q}
 
 \end{document}
